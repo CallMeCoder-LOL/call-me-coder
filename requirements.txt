@@ -1,0 +1,9 @@
+requests
+beautifulsoup4
+cloudscraper
+user-agent
+requests-toolbelt
+pyTelegramBotAPI
+faker
+multiprocessing-logging
+telebot
