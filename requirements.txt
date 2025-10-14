@@ -6,4 +6,5 @@ requests-toolbelt
 pyTelegramBotAPI
 faker
 multiprocessing-logging
+pycountry
 telebot
