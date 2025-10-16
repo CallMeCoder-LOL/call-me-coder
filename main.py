@@ -2171,7 +2171,7 @@ Card: XXXXXXXXXXXXXXXX|MM|YYYY|CVV</b>''',parse_mode="HTML")
 [<a href="https://t.me/baba_coder">ϟ</a>] 𝙏𝙞𝙢𝙚 ➼ {"{:.1f}".format(execution_time)}
 
 𝗕𝗼𝘁 𝗕𝘆: @baba_coder</b>'''
-	if "Your Payment Method Successfully Added." in last:
+	if "Your Payment Method Successfully Added." in last or "Approved CCN!" in last:
 		bot.edit_message_text(chat_id=message.chat.id, message_id=ko, text=msg)
 	else:
 		bot.edit_message_text(chat_id=message.chat.id, message_id=ko, text=msgd)
